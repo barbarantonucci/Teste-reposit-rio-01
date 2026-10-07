@@ -1,47 +1,46 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Acesso</title>
-    <link rel="stylesheet" href="style.css">
-    <!-- Coloque a tag de script do CDN do Supabase aqui -->
-    <script src="URL_DO_CDN_SUPABASE"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autenticação</title>
+
+    <!-- Buscar a caixa de ferramentas (biblioteca) do Supabase para cá-->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 </head>
 <body>
-    <div class="container">
-        <h2>Acesse sua conta</h2>
-        <input type="email" id="email" placeholder="Seu E-mail" required>
-        <input type="password" id="senha" placeholder="Sua Senha" required>
-        <button onclick="fazerAcesso()">Continuar</button>
-        <p id="mensagem" style="color: red;"></p>
-    </div>
+
+    <h1>Acesso ao sistema</h1>
+
+    <input type="email" id="email" placeholder="e-mail"><br>
+    <input type="password" id="senha" placeholder="senha"><br>
+
+    <button onclick="cadastrar()">Cadastrar</button>
+    <button onclick="logar()">Login</button>
+
+    <!--importa a nossa conexão com o supabase -->
 
     <script src="supabase-config.js"></script>
+
     <script>
-        async function fazerAcesso() {
-            const email = document.getElementById('email').value;
-            const senha = document.getElementById('senha').value;
-            const msg = document.getElementById('mensagem');
+        //cadastrar uma nova conta 
+        async function cadastrar() {
+        const email = document.getElementById('email').value;
+        const senha = document.getElementById('senha').value;
 
-            let { data, error } = await supabase.auth.signInWithPassword({ email, password: senha });
+        const resultado = await clienteSupabase.auth.signUp({
+            email: email,
+            password: senha
+        });
 
-            if (error) {
-                if (error.message.includes('Invalid login credentials')) {
-                    msg.innerText = "Conta não encontrada. Criando nova conta...";
-                    const { data: signUpData, error: signUpError } = await supabase.auth.signUp({ email, password: senha });
-                    
-                    if (signUpError) {
-                        msg.innerText = "Erro ao criar: " + signUpError.message;
-                        return;
-                    }
-                    window.location.href = 'dashboard.html';
-                } else {
-                    msg.innerText = "Erro: " + error.message;
-                }
-            } else {
-                window.location.href = 'dashboard.html';
-            }
+        //se não tiver erro, vai para o painel (dashboard)
+
+        if (!resultado.error) {
+            window.location.replace('dashboard.html');
         }
+    }
+
     </script>
-</body>
-</html>
+    </body>
+    </html>
