@@ -7,8 +7,6 @@
     <title>Document</title>
 </head>
 <body>
-
-    
     
     <header class="cabecalho">
 
@@ -20,7 +18,7 @@
 
             <nav class="menu">
                 <ul>
-                    <li><a href="#">Início</a></li>
+                    <li><a href="login.html">Início</a></li>
                     
                     <li class="dropdown"><a href="#">Filmes</a>
 
@@ -262,13 +260,6 @@
 
 
 </section>
-
-<div class="container">
-        <h1>Bem-vindo ao Meu App</h1>
-        <p>A primeira aplicação completa que você construiu!</p>
-        <button onclick="window.location.href='auth.html'">Entrar ou Cadastrar</button>
-    </div>
-
 </section>
 
 <footer>
@@ -287,14 +278,4 @@
 </footer>
 
 </body>
-
-<script src="script.js">
-    const email = document.getElementary ("email").value;
-    const senha = document.getElementary ("senha").value;
-
-    const resultado = await clientSupabase.auth.signUp({
-        email: email,
-        senha: senha
-    });
-</script>
 </html>
